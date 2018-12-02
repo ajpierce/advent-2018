@@ -1,5 +1,6 @@
 (ns day02
-  (:require [clojure.string :as s]
+  (:require [clojure.data :refer [diff]]
+            [clojure.string :as s]
             [utils :refer [get-input]]))
 
 (defn count-letters [row]
@@ -19,7 +20,30 @@
                (if (contains? occs 2) (inc twos) twos)
                (if (contains? occs 3) (inc threes) threes))))))
 
-(defn part2 [])
+(defn common-letters [a b]
+  (let [[_ _ common] (diff (seq a) (seq b))]
+    (->> common
+         (filter some?)
+         (apply str))))
+
+(defn found? [current remaining]
+  (loop [remaining remaining]
+    (if (empty? remaining)
+      nil
+      (let [target (first remaining)
+            common (common-letters current target)]
+        (if (= (-> current count dec) (count common))
+          common
+          (recur (rest remaining)))))))
+
+(defn part2 []
+  (let [rows (-> (get-input "02") (s/split #"\s+"))]
+    (loop [current (first rows)
+           remaining (rest rows)]
+      (let [found (found? current remaining)]
+        (if (= nil found)
+          (recur (first remaining) (rest remaining))
+          found)))))
 
 (defn -main []
   (let [a1 (time (part1))
