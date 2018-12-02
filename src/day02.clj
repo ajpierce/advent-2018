@@ -8,12 +8,6 @@
 (defn occurrences [counts]
   (into #{} (vals counts)))
 
-(defn two? [occs]
-  (contains? occs 2))
-
-(defn three? [occs]
-  (contains? occs 3))
-
 (defn part1 []
   (loop [remaining (-> (get-input "02") (s/split #"\s+"))
          twos 0
@@ -22,8 +16,8 @@
       (* twos threes)
       (let [occs (-> (first remaining) count-letters occurrences)]
         (recur (rest remaining)
-               (if (two? occs) (inc twos) twos)
-               (if (three? occs) (inc threes) threes))))))
+               (if (contains? occs 2) (inc twos) twos)
+               (if (contains? occs 3) (inc threes) threes))))))
 
 (defn part2 [])
 
