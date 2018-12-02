@@ -37,7 +37,7 @@
           (recur (rest remaining)))))))
 
 (defn part2 []
-  (let [rows (-> (get-input "02") (s/split #"\s+"))]
+  (let [rows (-> (get-input "02") (s/split #"\s+") sort)]
     (loop [current (first rows)
            remaining (rest rows)]
       (let [found (found? current remaining)]
