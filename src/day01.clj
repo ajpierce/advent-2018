@@ -16,5 +16,7 @@
           (recur i (conj seen i) (rest inputs)))))))
 
 (defn -main []
-  (println "Part 1 answer is:" (part1))
-  (println "Part 2 answer is:" (part2)))
+  (let [a1 (time (part1))
+        a2 (time (part2))]
+    (println "Part 1 answer is:" a1)
+    (println "Part 2 answer is:" a2)))
