@@ -27,14 +27,15 @@
          (apply str))))
 
 (defn found? [current remaining]
-  (loop [remaining remaining]
-    (if (empty? remaining)
-      nil
-      (let [target (first remaining)
-            common (common-letters current target)]
-        (if (= (-> current count dec) (count common))
-          common
-          (recur (rest remaining)))))))
+  (let [target-count (-> current count dec)]
+    (loop [remaining remaining]
+      (if (empty? remaining)
+        nil
+        (let [target (first remaining)
+              common (common-letters current target)]
+          (if (= target-count (count common))
+            common
+            (recur (rest remaining))))))))
 
 (defn part2 []
   (let [rows (-> (get-input "02") (s/split #"\s+") sort)]
