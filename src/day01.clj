@@ -1,11 +1,11 @@
 (ns day01
-  (:require [utils :refer [get-input]]))
+  (:require [utils :refer [get-input parse-as-numbers]]))
 
 (defn part1 []
-  (->> (get-input) (apply +)))
+  (->> (get-input) parse-as-numbers (apply +)))
 
 (defn part2 []
-  (let [input-forever (cycle (get-input))]
+  (let [input-forever (cycle (-> (get-input) parse-as-numbers))]
     (loop [f (first input-forever)
            seen #{(first input-forever)}
            inputs (rest input-forever)]
