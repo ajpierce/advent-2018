@@ -1,13 +1,5 @@
 (ns day01
-  (:require [clojure.string :as s]))
-
-(defn get-input
-  ([] (get-input "input/01.txt"))
-  ([path]
-   (let [strings (-> (slurp path)
-                     (s/replace "+" "")
-                     (s/split #"\s+"))]
-     (map #(Integer/parseInt %) strings))))
+  (:require [utils :refer [get-input]]))
 
 (defn part1 []
   (->> (get-input) (apply +)))
